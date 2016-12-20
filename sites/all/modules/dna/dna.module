@@ -14,6 +14,7 @@ function dna_menu() {
 function dna_form() {
       $form['nucleotide_sequence'] = array(
             '#title' => 'Nucleotide Sequence',
+            '#description' => 'Enter a series of letters, choosing from (A, T, G, C).',
             '#placeholder' => 'example: TAGCAT',
             '#type' => 'textfield',
             '#required' => TRUE,
@@ -25,6 +26,25 @@ function dna_form() {
       );
       return $form;
 }
+
+function helix_matcher_form_validate($element) {
+      $valid_characters = array('A', 'T', 'C', 'G');
+      $characters = str_split($element['#value']);
+      foreach($characters as $character) {
+            if(!in_array($character, $valid_characters)) {
+                  form_error($element, t('Error: Please enter only the following valid characters - A T C G.'));
+            }
+      }
+}
+
+function helix_matcher_submit($form, &$form_state) {
+      $nucleotide_sequence = $form_state['values']['nucleotide_sequence'];
+      $nucleotide_matches = match_nucleotide($nucleotide_sequence);
+      $_SESSION['original_input'] = $nucleotide_sequence;
+      $_SESSION['matched_output'] = $nucleotide_matches;
+      $form_state['redirect'] = 'matched_double_helix';   
+}
+
 
 function match_nucleotide($input) {
     $broken_helix = str_split($input);
