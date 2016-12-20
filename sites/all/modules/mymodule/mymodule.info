@@ -1,0 +1,5 @@
+name = Recent Article Viewer
+description = Display Nodes with Ajax.
+package = Custom Ajax Module
+core = 7.x
+files[] = mymodule.module
