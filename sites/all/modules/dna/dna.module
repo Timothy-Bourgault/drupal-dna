@@ -8,4 +8,19 @@ function dna_menu() {
         'access callback' => TRUE,
         'type' => MENU_NORMAL_ITEM,
     );
+    return $items;
 }
+
+function match_nucleotide($input) {
+    if ($input == 'A') {
+        return 'T';
+    } elseif ($input == 'T') {
+        return 'A';
+    } elseif ($input == 'C') {
+        return 'G';
+    } elseif ($input == 'G') {
+        return 'C';
+    } else {
+        return '';
+    }
+}    

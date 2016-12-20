@@ -10,7 +10,7 @@ class DnaUnitTestCase extends DrupalUnitTestCase {
         );
     }
 
-    function helixMatcher()
+    function testHelixMatcher()
     {
         //Description
         $description = 'When a G nucleotide is entered, it should return a C nucleotide';
