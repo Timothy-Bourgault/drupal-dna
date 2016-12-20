@@ -12,15 +12,20 @@ function dna_menu() {
 }
 
 function match_nucleotide($input) {
-    if ($input == 'A') {
-        return 'T';
-    } elseif ($input == 'T') {
-        return 'A';
-    } elseif ($input == 'C') {
-        return 'G';
-    } elseif ($input == 'G') {
-        return 'C';
-    } else {
-        return '';
+    $broken_helix = str_split($input);
+    $nucleotide_match_array = array();
+    foreach($broken_helix as $nucleotide) {
+        $capsed_nucleotide = strtoupper($nucleotide);
+        if ($capsed_nucleotide == 'A') {
+            array_push($nucleotide_match_array, 'T');
+        } elseif ($capsed_nucleotide == 'T') {
+            array_push($nucleotide_match_array, 'A');
+        } elseif ($capsed_nucleotide == 'C') {
+            array_push($nucleotide_match_array, 'G');
+        } elseif ($capsed_nucleotide == 'G') {
+            array_push($nucleotide_match_array, 'C');
+        }
     }
-}    
+    $nucleotide_match = join('', $nucleotide_match_array);
+    return $nucleotide_match;
+}        

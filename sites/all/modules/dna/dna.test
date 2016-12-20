@@ -51,6 +51,36 @@ class DnaUnitTestCase extends DrupalUnitTestCase {
         //Assert
         $expected_output = 'A';
         $this->assertEqual($result, $expected_output, $description);
+
+        //Description
+        $description = 'When a the nucleotide sequence of TGCA is entered, it should return the nucleotide output sequence ACGT';
+        //Arrange
+        $input = 'TGCA';
+        //Act
+        $result = match_nucleotide($input);
+        //Assert
+        $expected_output = 'ACGT';
+        $this->assertEqual($result, $expected_output, $description);
+
+        //Description
+        $description = 'When a the nucleotide sequence of T G C A is entered, it should return the nucleotide output sequence ACGT';
+        //Arrange
+        $input = 'T G C A';
+        //Act
+        $result = match_nucleotide($input);
+        //Assert
+        $expected_output = 'ACGT';
+        $this->assertEqual($result, $expected_output, $description);
+
+        //Description
+        $description = "When only spaces '  ' are entered, it should return ''";
+        //Arrange
+        $input = '  ';
+        //Act
+        $result = match_nucleotide($input);
+        //Assert
+        $expected_output = '';
+        $this->assertEqual($result, $expected_output, $description);
     }
 
 }
