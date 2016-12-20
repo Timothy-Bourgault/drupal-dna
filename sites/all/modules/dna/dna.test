@@ -84,3 +84,15 @@ class DnaUnitTestCase extends DrupalUnitTestCase {
     }
 
 }
+
+class DnaFunctionalUnitTestCase extends DrupalWebTestCase {
+        public static function getInfo() {
+            return array(
+                'name' => 'DNA Module Functional Tests',
+                'description' => 'Tests for actual functionality of module on the site.'
+                'group' => 'Custom Modules With Tests',
+            );
+        }
+
+        
+}
