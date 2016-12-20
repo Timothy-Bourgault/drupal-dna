@@ -11,6 +11,21 @@ function dna_menu() {
     return $items;
 }
 
+function dna_form() {
+      $form['nucleotide_sequence'] = array(
+            '#title' => 'Nucleotide Sequence',
+            '#placeholder' => 'example: TAGCAT',
+            '#type' => 'textfield',
+            '#required' => TRUE,
+            '#element_validate' => array('helix_matcher_form_validate'),
+      );
+      $form['submit'] = array(
+            '#type' => 'submit',
+            '#value' => 'Match Um!'
+      );
+      return $form;
+}
+
 function match_nucleotide($input) {
     $broken_helix = str_split($input);
     $nucleotide_match_array = array();
@@ -28,4 +43,4 @@ function match_nucleotide($input) {
     }
     $nucleotide_match = join('', $nucleotide_match_array);
     return $nucleotide_match;
-}        
+}
