@@ -8,6 +8,12 @@ function dna_menu() {
         'access callback' => TRUE,
         'type' => MENU_NORMAL_ITEM,
     );
+    $items['matched_double_helix'] = array(
+        'title' => 'Your Completed Double Helix!!!',
+        'page callback' => 'helix_results',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
     return $items;
 }
 
@@ -42,7 +48,7 @@ function helix_matcher_submit($form, &$form_state) {
       $nucleotide_matches = match_nucleotide($nucleotide_sequence);
       $_SESSION['original_input'] = $nucleotide_sequence;
       $_SESSION['matched_output'] = $nucleotide_matches;
-      $form_state['redirect'] = 'matched_double_helix';   
+      $form_state['redirect'] = 'matched_double_helix';
 }
 
 
