@@ -1,0 +1,7 @@
+name = DNA Helix Matcher
+description = Correctly matches corresponding nucleotides for a given string entered.
+package = DNA Custom Module
+core = 7.x
+files[] = dna.test
+files[] = dna.module
+dependencies[] = simpletest
