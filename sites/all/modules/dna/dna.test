@@ -94,5 +94,7 @@ class DnaFunctionalUnitTestCase extends DrupalWebTestCase {
             );
         }
 
-        
+        public function setUp() {
+            parent::setUp(array('dna'));
+        }
 }
