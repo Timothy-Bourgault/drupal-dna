@@ -10,7 +10,7 @@ function dna_menu() {
     );
     $items['matched_double_helix'] = array(
         'title' => 'Your Completed Double Helix!!!',
-        'page callback' => 'helix_results',
+        'page callback' => 'helix_results_success',
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
     );
@@ -18,61 +18,64 @@ function dna_menu() {
 }
 
 function dna_form() {
-      $form['nucleotide_sequence'] = array(
-            '#title' => 'Nucleotide Sequence',
-            '#description' => 'Enter a series of letters, choosing from (A, T, G, C).',
-            '#placeholder' => 'example: TAGCAT',
-            '#type' => 'textfield',
-            '#required' => TRUE,
-            '#element_validate' => array('helix_matcher_form_validate'),
-      );
-      $form['submit'] = array(
-            '#type' => 'submit',
-            '#value' => 'Match Um!'
-      );
-      return $form;
+    $form['nucleotide_sequence'] = array(
+        '#title' => 'Nucleotide Sequence',
+        '#description' => 'Enter a series of letters, choosing from (A, T, G, C).',
+        '#type' => 'textfield',
+        '#required' => TRUE,
+        '#element_validate' => array('helix_matcher_form_validate'),
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Match Um!',
+    );
+    return $form;
 }
 
 function helix_matcher_form_validate($element) {
-      $valid_characters = array('A', 'T', 'C', 'G');
-      $characters = str_split($element['#value']);
-      foreach($characters as $character) {
-            if(!in_array($character, $valid_characters)) {
-                  form_error($element, t('Error: Please enter only the following valid characters - A T C G.'));
-            }
-      }
+    $valid_characters = array('A', 'T', 'C', 'G', ' ');
+    $sequence_array = strtoupper($element['#value']);
+    $sequence_array = trim($sequence_array);
+    $sequence_array = str_split($sequence_array);
+    foreach($sequence_array as $character) {
+        if (!in_array($character, $valid_characters)) {
+            form_error($element, t('Error: Please enter only the following valid characters - A T C G.'));
+        }
+    }
 }
 
-function helix_matcher_submit($form, &$form_state) {
-      $nucleotide_sequence = $form_state['values']['nucleotide_sequence'];
-      $nucleotide_matches = match_nucleotide($nucleotide_sequence);
-      $_SESSION['original_input'] = $nucleotide_sequence;
-      $_SESSION['matched_output'] = $nucleotide_matches;
-      $form_state['redirect'] = 'matched_double_helix';
-}
+function dna_form_submit($form, &$form_state) {
+    $input = $form_state['values']['nucleotide_sequence'];
+    $_SESSION['original_input'] = $input;
+    $nucleotide_matches = match_nucleotide($input);
+    $_SESSION['matched_output'] = $nucleotide_matches;
+    $form_state['redirect'] = 'matched_double_helix';
 
+}
 
 function match_nucleotide($input) {
+    $valid_characters = array('A', 'T', 'C', 'G');
     $broken_helix = str_split($input);
     $nucleotide_match_array = array();
     foreach($broken_helix as $nucleotide) {
         $capsed_nucleotide = strtoupper($nucleotide);
-        if ($capsed_nucleotide == 'A') {
-            array_push($nucleotide_match_array, 'T');
-        } elseif ($capsed_nucleotide == 'T') {
-            array_push($nucleotide_match_array, 'A');
-        } elseif ($capsed_nucleotide == 'C') {
-            array_push($nucleotide_match_array, 'G');
-        } elseif ($capsed_nucleotide == 'G') {
-            array_push($nucleotide_match_array, 'C');
+        if (in_array($capsed_nucleotide, $valid_characters)) {
+            if($capsed_nucleotide == 'A') {
+                array_push($nucleotide_match_array, 'T');
+            } elseif ($capsed_nucleotide == 'T') {
+                array_push($nucleotide_match_array, 'A');
+            } elseif ($capsed_nucleotide == 'C') {
+                array_push($nucleotide_match_array, 'G');
+            } elseif ($capsed_nucleotide == 'G') {
+                array_push($nucleotide_match_array, 'C');
+            }
         }
     }
-    $nucleotide_match = join('', $nucleotide_match_array);
-    return $nucleotide_match;
+    return implode('', $nucleotide_match_array);
 }
 
-function helix_results() {
+function helix_results_success() {
     $nucleotide_sequence = $_SESSION['original_input'];
     $nucleotide_matches = $_SESSION['matched_output'];
-    return 'Your original sequence:' . $nucleotide_sequence . '<br>' . 'And their matches:' . $nucleotide_matches;
+    return '<h1>Your original sequence:  ' . $nucleotide_sequence . '<br>' . 'And their matches:  ' . $nucleotide_matches . '</h1>';
 }

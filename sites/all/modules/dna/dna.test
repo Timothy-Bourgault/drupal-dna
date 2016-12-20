@@ -98,4 +98,10 @@ class DnaFunctionalUnitTestCase extends DrupalWebTestCase {
             parent::setUp(array('dna'));
         }
 
+        public function testHelixResults() {
+            $this->drupalGet('helix_results');
+            $this->assertText('Everything is functioning properly!');
+
+        }
+
 }
