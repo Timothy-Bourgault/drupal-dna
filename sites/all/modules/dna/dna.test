@@ -21,6 +21,36 @@ class DnaUnitTestCase extends DrupalUnitTestCase {
         //Assert
         $expected_output = 'C';
         $this->assertEqual($result, $expected_output, $description);
+
+        //Description
+        $description = 'When a C nucleotide is entered, it should return a G nucleotide';
+        //Arrange
+        $input = 'C';
+        //Act
+        $result = match_nucleotide($input);
+        //Assert
+        $expected_output = 'G';
+        $this->assertEqual($result, $expected_output, $description);
+
+        //Description
+        $description = 'When an A nucleotide is entered, it should return a T nucleotide';
+        //Arrange
+        $input = 'A';
+        //Act
+        $result = match_nucleotide($input);
+        //Assert
+        $expected_output = 'T';
+        $this->assertEqual($result, $expected_output, $description);
+
+        //Description
+        $description = 'When a T nucleotide is entered, it should return an A nucleotide';
+        //Arrange
+        $input = 'T';
+        //Act
+        $result = match_nucleotide($input);
+        //Assert
+        $expected_output = 'A';
+        $this->assertEqual($result, $expected_output, $description);
     }
 
 }
