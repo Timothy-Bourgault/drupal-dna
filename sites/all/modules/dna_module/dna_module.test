@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file
+ * Tests for DNA Module.
+ */
+
+class DnaUnitTestCase extends DrupalUnitTestCase {
+
+    public static function getInfo()
+    {
+        return array(
+            'name' => 'DNA Module Tests',
+            'description' => 'Testing to provide that module functions correctly.'
+            'group' => "Custom Modules With Tests",
+        );
+    }
+
+    
+}
