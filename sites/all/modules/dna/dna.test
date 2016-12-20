@@ -1,19 +1,26 @@
 <?php
-/**
- * @file
- * Tests for DNA Module.
- */
 
 class DnaUnitTestCase extends DrupalUnitTestCase {
 
-    public static function getInfo()
-    {
+    public static function getInfo() {
         return array(
             'name' => 'DNA Module Tests',
-            'description' => 'Testing to provide that module functions correctly.'
+            'description' => 'Testing to provide that helixMatcher functions correctly.',
             'group' => "Custom Modules With Tests",
         );
     }
 
-     
+    function helixMatcher()
+    {
+        //Description
+        $description = 'When a G nucleotide is entered, it should return a C nucleotide';
+        //Arrange
+        $input = 'G';
+        //Act
+        $result = match_nucleotide($input);
+        //Assert
+        $expected_output = 'C';
+        $this->assertEqual($result, $expected_output, $description);
+    }
+
 }
